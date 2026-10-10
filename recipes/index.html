@@ -46,11 +46,11 @@ footer { margin-top: 32px; color: #888; font-size: 0.8rem; }
 <option value="photo">Photo</option><option value="note">Note</option>
 <option value="tiktok">TikTok</option><option value="reddit">Reddit</option>
 <option value="manual">Manual</option></select>
-<select id="tag"><option value="">All tags</option></select>
+<select id="tag"><option value="">All tags</option><option value="potatoes">potatoes</option><option value="side">side</option></select>
 </div>
 <div id="list"></div>
 <script>
-const RECIPES = [];
+const RECIPES = [{"date_added": "2026-10-10T12:21:18.729Z", "description": "Feeds 4 as a side.", "id": 1, "ingredients": ["1kg Maris Piper potatoes", "Vegetable oil", "2 tsp smoked paprika", "1 tsp dried oregano", "Ground sea salt"], "personal_notes": "", "source_reference": "@amysheppardfood on TikTok", "source_type": "tiktok", "steps": ["Peel the potatoes, cut them into wedges and soak them in cold water for a couple of minutes, changing the water twice to rinse off the starch.", "Place the wedges in a saucepan and cover them in cold salted water.", "Bring the potato water to a simmer and cook for around 5 minutes. The potatoes should still be firm enough to shake them up without them breaking.", "Heat the oven to 220C fan.", "Drain the potatoes in a colander and give them a good shake. Stir them with the metal prongs of a fork to fluff them up a little. Leave in the colander until there is no longer steam coming off them.", "Heat oil in a thin-based roasting tin (enough to just cover the bottom so all the wedges touch the base) until spitting hot.", "Stir the paprika and oregano into the oil.", "Tip the wedges into the pan and use a fish slice to turn them over until coated in herby oil.", "Season generously with salt.", "Roast in the oven for 12 minutes, remove and turn them over again to get another coating of the oil.", "Return to the oven for 12 more minutes, remove again and turn them over, before roasting for a final 5-7 minutes or until crisp and cooked through."], "tags": ["side", "potatoes"], "title": "Crispy Smoked Paprika Potato Wedges", "updated_at": "2026-10-10T12:21:18.729Z"}];
 const SRC_LABEL = {photo:"Photo",note:"Note",tiktok:"TikTok",reddit:"Reddit",manual:"Manual"};
 const q = document.getElementById('q'), src = document.getElementById('src'),
       tag = document.getElementById('tag'), list = document.getElementById('list');
