@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Travel Bucket List &middot; Personal Site</title>
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       margin: 0; padding: 0 16px 48px; max-width: 760px; margin-left: auto; margin-right: auto;
+       line-height: 1.5; }
+header { padding: 20px 0 8px; border-bottom: 1px solid #ccc; margin-bottom: 16px; }
+header h1 { font-size: 1.4rem; margin: 0 0 8px; }
+nav a { margin-right: 16px; text-decoration: none; font-weight: 600; }
+nav a.active { text-decoration: underline; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
+.controls input[type="search"], .controls select {
+  font-size: 1rem; padding: 8px 10px; border: 1px solid #999; border-radius: 8px; }
+.controls input[type="search"] { flex: 1 1 200px; }
+.card { border: 1px solid #ccc; border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
+.card h3 { margin: 0 0 6px; font-size: 1.1rem; }
+.badges { margin: 6px 0; }
+.badge { display: inline-block; font-size: 0.75rem; background: #eee; color: #333;
+         border-radius: 20px; padding: 2px 10px; margin: 0 6px 4px 0; }
+.meta { color: #666; font-size: 0.85rem; }
+.detail { margin-top: 10px; }
+.detail h4 { margin: 12px 0 4px; font-size: 0.95rem; }
+.detail ul, .detail ol { margin: 4px 0 8px; padding-left: 22px; }
+.empty { color: #666; padding: 24px 0; }
+.itinerary { white-space: pre-line; }
+footer { margin-top: 32px; color: #888; font-size: 0.8rem; }
+.home-links { display: grid; gap: 12px; margin-top: 16px; }
+.home-links a { display: block; border: 1px solid #ccc; border-radius: 10px;
+                padding: 16px; text-decoration: none; color: inherit; }
+.home-links a strong { font-size: 1.15rem; display: block; margin-bottom: 4px; }
+.home-links a span { color: #666; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header><h1>Personal Site</h1><nav><a href="/" class="">Home</a><a href="/recipes/" class="">Recipes</a><a href="/media/" class="">Media List</a><a href="/ideas/" class="">Dinner Ideas</a><a href="/travel/" class="active">Travel Bucket List</a></nav></header>
+<main>
+<h2>Travel Bucket List</h2>
+<p class="meta">Primary goal: a true adventure in every single country.</p>
+<div class="controls">
+<input type="search" id="q" placeholder="Search trips...">
+<select id="ct"><option value="">All countries</option><option value="Ape Lake, British Columbia, Canada">Ape Lake, British Columbia, Canada</option><option value="Cañón del Río La Venta, Mexico">Cañón del Río La Venta, Mexico</option><option value="England, United Kingdom">England, United Kingdom</option><option value="Europe">Europe</option><option value="Jotunheimen, Norway">Jotunheimen, Norway</option><option value="Kauaʻi, United States">Kauaʻi, United States</option><option value="Mallorca, Spain">Mallorca, Spain</option><option value="Mt. Merapi, Indonesia">Mt. Merapi, Indonesia</option><option value="Mælifell, Iceland">Mælifell, Iceland</option><option value="Romania">Romania</option><option value="Slovenia">Slovenia</option><option value="South Africa / Lesotho">South Africa / Lesotho</option><option value="Tian Shan, Kyrgyzstan">Tian Shan, Kyrgyzstan</option><option value="Unspecified">Unspecified</option><option value="Yukon, Canada">Yukon, Canada</option></select>
+<select id="st"><option value="">Any status</option>
+<option value="want_to_do">Want to do</option>
+<option value="planned">Planned</option>
+<option value="done">Done</option></select>
+</div>
+<div id="list"></div>
+<script>
+const TRIPS = [{"ages": "Ages 10–13", "best_time": "July, before school resumes", "country": "Slovenia", "cultural": "", "dishes": "", "id": 1, "itinerary": "Day 1: Acclimate.\nDay 2: See Bled Castle and Vintgar Gorge, then drive to the Bovec area.\nDay 3: Whitewater rafting on the Soča River and explore.\nDay 4: Visit the Vršič Pass and do a short hike.\nDay 5: Guided via ferrata route in the Julian Alps.\nDay 6: Light swim in the morning, then return to Ljubljana for the trip home.", "notes": "", "status": "want_to_do", "title": "Slovenia - Water to Summit"}, {"ages": "", "best_time": "", "country": "Romania", "cultural": "", "dishes": "", "id": 2, "itinerary": "Day 1: Explore Bucharest and check gear.\nDay 2: Drive to Brașov and settle in.\nDay 3: Explore Brașov and check gear for an early start.\nDay 4: Start the trek at Piatra Craiului and navigate to a mountain cabana.\nDay 5: Finish the trek and return to base.\nDay 6: Another easier single-day hike or local outing.\nDay 7: Return.", "notes": "", "status": "want_to_do", "title": "Romania - The Carpathians"}, {"ages": "Ages 10–13", "best_time": "May–June or September", "country": "Mallorca, Spain", "cultural": "", "dishes": "", "id": 3, "itinerary": "Day 1: Arrive in Palma and explore the old town.\nDay 2: Gear check and drive to the Sóller area in the Tramuntana.\nDay 3: Start the GR221 hut-to-hut trek through the Tramuntana.\nDay 4: Finish the trek, or swap for canyoning in a Tramuntana barranco.\nDay 5: Deep-water soloing or sea-cliff climbing at an accessible cala.\nDay 6: Sea kayak or easy swim, then drive back to Palma.\nDay 7: Return.", "notes": "", "status": "want_to_do", "title": "Mallorca - Sea to Summit"}, {"ages": "Ages 13–16", "best_time": "July–August only; glacier window", "country": "Jotunheimen, Norway", "cultural": "", "dishes": "", "id": 4, "itinerary": "Day 1: Arrive in Oslo and explore the city.\nDay 2: Travel to Jotunheimen (Lom or Gjendesheim) and settle in.\nDay 3: Hike Besseggen Ridge.\nDay 4: Drive the Sognefjellet mountain pass and do a short glacier-adjacent hike.\nDay 5: Guided Galdhøpiggen summit attempt, including glacier crossing.\nDay 6: Sognefjord by boat or kayak.\nDay 7: Return to Oslo.", "notes": "", "status": "want_to_do", "title": "Jotunheimen - Land of Giants"}, {"ages": "Ages 12–16", "best_time": "July–September", "country": "Tian Shan, Kyrgyzstan", "cultural": "", "dishes": "", "id": 5, "itinerary": "Day 1: Arrive in Bishkek and explore the city.\nDay 2: Drive to Karakol / Issyk-Kul and settle in.\nDay 3: Start the Ala-Kul Lake trek from Jyrgalan or Altyn Arashan.\nDay 4: Trek to Ala-Kul Lake and overnight in a camp or yurt.\nDay 5: Descend to Altyn Arashan and soak in the hot springs.\nDay 6: Horseback ride with a nomadic family and yurt stay.\nDay 7: Return to Bishkek.", "notes": "", "status": "want_to_do", "title": "Tian Shan - Heavenly Mountains"}, {"ages": "Solo", "best_time": "", "country": "Europe", "cultural": "", "dishes": "", "id": 6, "itinerary": "A solo cross-Europe bikepacking adventure.", "notes": "", "status": "want_to_do", "title": "European Divide Trail - Solo Trek"}, {"ages": "Ages 16+ minimum; strong backcountry fitness required", "best_time": "May–September for lower rain risk and safer surf; unpredictable year-round", "country": "Kauaʻi, United States", "cultural": "Wailua River heiau sites; Alakaʻi Swamp endemic bird habitat; Kalalau Valley history", "dishes": "Poke; kālua pork; poi", "id": 7, "itinerary": "Day 1: Arrive in Līhuʻe; sort permits and gear.\nDay 2: Kayak / hike approach up the Wailua River toward the base of the Waiʻaleʻale approach.\nDays 3–4: Multi-day bushwhack through the Alakaʻi Swamp toward the Blue Hole crater: no maintained trail, waist-deep mud, fixed ropes on steep sections, and near-constant rain.\nDay 5: Reach the crater and camp near the waterfalls.\nDay 6: Bushwhack back out.\nDay 7: Nā Pali coast boat / swim approach toward Honopū. The beach may be reachable by ocean swim or kayak from Kalalau in the right surf, but entering Honopū Valley is prohibited.", "notes": "Realistically needs 9–10 days, not 7, if the bushwhack is done properly. Adult-level backcountry difficulty; experienced hikers sometimes need rescue. Honopū Valley has been closed as a protected nature reserve since 1999.", "status": "want_to_do", "title": "Kauai - Paradise Extremes"}, {"ages": "Ages 16+", "best_time": "October–November or March–April", "country": "South Africa / Lesotho", "cultural": "Basotho village visit; San rock art sites; Zulu cultural village", "dishes": "Bobotie; biltong; pap and chakalaka", "id": 8, "itinerary": "Day 1: Arrive in Johannesburg and transfer.\nDay 2: Drive to Sani Pass and acclimate.\nDays 3–7: Begin the true escarpment traverse: off-trail navigation along the Lesotho border, exposed scrambling, and unpredictable weather with real lightning risk.", "notes": "The full traverse is 10–14 days end to end. A week is only a serious taste, not the whole route.", "status": "want_to_do", "title": "Drakensberg Traverse - Dragon's Spine"}, {"ages": "Ages 14–17, with real off-trail navigation skill already in place", "best_time": "July–August; the short snow-free window", "country": "Yukon, Canada", "cultural": "Tr’ondëk Hwëch’in heritage; SS Klondike sternwheeler; midnight sun", "dishes": "Arctic char; bannock; moose stew", "id": 9, "itinerary": "Day 1: Arrive in Whitehorse and check gear.\nDay 2: Drive the Dempster Highway to Tombstone and camp.\nDays 3–6: Off-trail traverse through Grizzly Lake, Divide Lake, and Glissade Pass, with long unmaintained sections, active grizzly country, and self-sufficient navigation.\nDay 7: Hike out and return to Whitehorse.", "notes": "", "status": "want_to_do", "title": "Tombstone Mountain - Yukon Wilderness"}, {"ages": "Ages 12–16; river crossings are the gatekeeper", "best_time": "July–August only", "country": "Mælifell, Iceland", "cultural": "Þingvellir National Park; Hallgrímskirkja; public geothermal pools", "dishes": "Icelandic lamb soup; skyr; plokkfiskur", "id": 10, "itinerary": "Day 1: Arrive in Reykjavík.\nDay 2: South Coast drive and stage for the highlands.\nDays 3–6: Full technical canyon descent with multi-pitch rappels, flooded swims, remote jungle caves, and massive swift colonies. There is no easy bailout once committed.\nDay 7: Return.", "notes": "", "status": "want_to_do", "title": "Maelifell Iceland - Highland Fire and Ice"}, {"ages": "Adult-only at true difficulty", "best_time": "November–April; dry season for safer water levels", "country": "Cañón del Río La Venta, Mexico", "cultural": "San Cristóbal de las Casas; Chiapa de Corzo; Maya / Zoque markets", "dishes": "Cochito; tamales chiapanecos; pozol", "id": 11, "itinerary": "Day 1: Arrive in Tuxtla Gutiérrez.\nDay 2: Transfer and check gear.\nDays 3–6: Full technical canyon descent with multi-pitch rappels, flooded swims, remote jungle caves, and massive swift colonies. There is no easy bailout once committed.\nDay 7: Return.", "notes": "", "status": "want_to_do", "title": "Cañón del Río La Venta - Jungle Canyon"}, {"ages": "Greendrop alone is family-accessible at 8+; Ape Lake / Waddington icefields are adult-only mountaineering", "best_time": "July–September", "country": "Ape Lake, British Columbia, Canada", "cultural": "Stó:lō Nation territory; Nuxalk Nation culture in Bella Coola", "dishes": "Wild salmon; bannock", "id": 12, "itinerary": "Day 1: Arrive in Vancouver.\nDays 2–3: Backpack in and traverse the Flora / Greendrop basin off-trail.\nDay 4: Transfer toward Bella Coola.\nDays 5–6: Floatplane to Ape Lake and push into the glacier basin toward Mt. Waddington’s icefields: genuine mountaineering terrain with crevasse hazard and self-arrest skills required.\nDay 7: Floatplane out.", "notes": "The two areas are roughly 800 km apart. This needs at least 10 days to do both properly, not 7.", "status": "want_to_do", "title": "Ape Lake BC - Coast Range Wild"}, {"ages": "Ages 14–17 for the two-summit version", "best_time": "April–October, subject to the current eruption alert level and route closures", "country": "Mt. Merapi, Indonesia", "cultural": "Borobudur; Prambanan; Yogyakarta Kraton; batik-making", "dishes": "Gudeg; sate klathak; nasi liwet", "id": 13, "itinerary": "Day 1: Arrive in Yogyakarta.\nDay 2: Visit Borobudur and Prambanan.\nDay 3: Transfer to Selo.\nDay 4: Night summit climb via the less-trafficked route.\nDay 5: Traverse toward Merbabu instead of resting.\nDay 6: Summit Merbabu for a two-volcano push.\nDay 7: Depart.", "notes": "Merapi is one of the world’s most active volcanoes. Check the current eruption alert level; the route is periodically closed regardless of plans.", "status": "want_to_do", "title": "Mt. Merapi Summit - Ring of Fire"}, {"ages": "", "best_time": "", "country": "England, United Kingdom", "cultural": "", "dishes": "", "id": 14, "itinerary": "Inn-to-inn hiking along the Cotswold Way.", "notes": "", "status": "want_to_do", "title": "England's Cotswold Way - Inn to Inn Hiking"}, {"ages": "", "best_time": "", "country": "Unspecified", "cultural": "", "dishes": "", "id": 15, "itinerary": "True silence at a Buddhist monastery.", "notes": "", "status": "want_to_do", "title": "Buddhist Monastery - True Silence"}];
+const TRIP_STATUS_LABEL = {"want_to_do": "Want to do", "planned": "Planned", "done": "Done"};
+const q = document.getElementById('q'), ct = document.getElementById('ct'),
+      st = document.getElementById('st'), list = document.getElementById('list');
+function badge(t){ return '<span class="badge">'+t+'</span>'; }
+function field(label, val){ return val ? `<h4>${label}</h4><p>${val}</p>` : ''; }
+function render(){
+  const needle = q.value.trim().toLowerCase();
+  const items = TRIPS.filter(t => {
+    if (ct.value && t.country !== ct.value) return false;
+    if (st.value && (t.status||'want_to_do') !== st.value) return false;
+    if (needle) {
+      const hay = (t.title+' '+(t.country||'')+' '+(t.itinerary||'')).toLowerCase();
+      if (!hay.includes(needle)) return false;
+    }
+    return true;
+  });
+  if (!items.length) { list.innerHTML = '<p class="empty">No trips yet. Send trip ideas in chat and they will show up here.</p>'; return; }
+  list.innerHTML = items.map((t,i) => `
+    <div class="card">
+      <h3>${t.title}</h3>
+      <div class="badges">${t.country ? badge(t.country) : ''}${badge(TRIP_STATUS_LABEL[t.status||'want_to_do']||t.status)}</div>
+      ${(t.best_time || t.ages) ? `<p class="meta">${[t.best_time && ('Best: '+t.best_time), t.ages && ('Ages '+t.ages)].filter(Boolean).join(' &middot; ')}</p>` : ''}
+      <div class="detail" id="t${i}" style="display:none">
+        ${t.itinerary ? `<h4>Itinerary</h4><p class="itinerary">${t.itinerary}</p>` : ''}
+        ${field("Can't-miss culture", t.cultural)}
+        ${field("Can't-miss dishes", t.dishes)}
+        ${field("Notes", t.notes)}
+      </div>
+      <a href="#" onclick="document.getElementById('t${i}').style.display =
+        document.getElementById('t${i}').style.display==='none'?'block':'none'; return false;">Show details</a>
+    </div>`).join('');
+}
+[q,ct,st].forEach(el => el.addEventListener('input', render));
+render();
+</script></main>
+<footer>Personal collection &middot; updated automatically</footer>
+</body>
+</html>
