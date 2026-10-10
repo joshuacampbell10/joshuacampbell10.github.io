@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home &middot; Personal Site</title>
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       margin: 0; padding: 0 16px 48px; max-width: 760px; margin-left: auto; margin-right: auto;
+       line-height: 1.5; }
+header { padding: 20px 0 8px; border-bottom: 1px solid #ccc; margin-bottom: 16px; }
+header h1 { font-size: 1.4rem; margin: 0 0 8px; }
+nav a { margin-right: 16px; text-decoration: none; font-weight: 600; }
+nav a.active { text-decoration: underline; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 16px; }
+.controls input[type="search"], .controls select {
+  font-size: 1rem; padding: 8px 10px; border: 1px solid #999; border-radius: 8px; }
+.controls input[type="search"] { flex: 1 1 200px; }
+.card { border: 1px solid #ccc; border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
+.card h3 { margin: 0 0 6px; font-size: 1.1rem; }
+.badges { margin: 6px 0; }
+.badge { display: inline-block; font-size: 0.75rem; background: #eee; color: #333;
+         border-radius: 20px; padding: 2px 10px; margin: 0 6px 4px 0; }
+.meta { color: #666; font-size: 0.85rem; }
+.detail { margin-top: 10px; }
+.detail h4 { margin: 12px 0 4px; font-size: 0.95rem; }
+.detail ul, .detail ol { margin: 4px 0 8px; padding-left: 22px; }
+.empty { color: #666; padding: 24px 0; }
+footer { margin-top: 32px; color: #888; font-size: 0.8rem; }
+.home-links { display: grid; gap: 12px; margin-top: 16px; }
+.home-links a { display: block; border: 1px solid #ccc; border-radius: 10px;
+                padding: 16px; text-decoration: none; color: inherit; }
+.home-links a strong { font-size: 1.15rem; display: block; margin-bottom: 4px; }
+.home-links a span { color: #666; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header><h1>Personal Site</h1><nav><a href="/" class="active">Home</a><a href="/recipes/" class="">Recipes</a><a href="/media/" class="">Media List</a></nav></header>
+<main>
+<h2>Home</h2>
+<div class="home-links">
+<a href="/recipes/"><strong>Recipes</strong><span>0 saved &middot; from photos, notes, TikTok, Reddit</span></a>
+<a href="/media/"><strong>Media List</strong><span>0 saved &middot; books, movies, shows, games to read, watch, or play</span></a>
+</div></main>
+<footer>Personal collection &middot; updated automatically</footer>
+</body>
+</html>
