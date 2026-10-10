@@ -44,11 +44,11 @@ footer { margin-top: 32px; color: #888; font-size: 0.8rem; }
 <input type="search" id="q" placeholder="Search ideas...">
 <select id="st"><option value="">All</option>
 <option value="idea">Ideas</option><option value="made">Made</option></select>
-<select id="tag"><option value="">All tags</option></select>
+<select id="tag"><option value="">All tags</option><option value="chicken">chicken</option><option value="czech">czech</option><option value="dinner">dinner</option><option value="paraguayan">paraguayan</option><option value="soup">soup</option></select>
 </div>
 <div id="list"></div>
 <script>
-const IDEAS = [];
+const IDEAS = [{"id": 1, "personal_notes": "", "promoted_recipe_id": null, "source_description": "", "source_type": "manual", "status": "idea", "tags": ["czech", "dinner"], "title": "Svíčková"}, {"id": 2, "personal_notes": "", "promoted_recipe_id": null, "source_description": "", "source_type": "manual", "status": "idea", "tags": ["paraguayan", "soup", "chicken"], "title": "Vori Vori Chicken"}];
 const RECIPES = {"1": "Crispy Smoked Paprika Potato Wedges", "2": "Sheet Pan Breakfast Burritos", "3": "Cajun Chicken and Dumplings"};
 const q = document.getElementById('q'), st = document.getElementById('st'),
       tag = document.getElementById('tag'), list = document.getElementById('list');
