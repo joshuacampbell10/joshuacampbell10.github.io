@@ -18,6 +18,10 @@ nav a.active { text-decoration: underline; }
 .controls input[type="search"], .controls select {
   font-size: 1rem; padding: 8px 10px; border: 1px solid #999; border-radius: 8px; }
 .controls input[type="search"] { flex: 1 1 200px; }
+.tabs { display: flex; gap: 8px; margin: 12px 0 4px; }
+.tabs button { font-size: 1rem; padding: 8px 18px; border: 1px solid #999; border-radius: 8px;
+  background: none; cursor: pointer; }
+.tabs button.on { background: #333; color: #fff; border-color: #333; }
 .card { border: 1px solid #ccc; border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
 .card h3 { margin: 0 0 6px; font-size: 1.1rem; }
 .badges { margin: 6px 0; }
@@ -42,6 +46,7 @@ footer { margin-top: 32px; color: #888; font-size: 0.8rem; }
 <main>
 <h2>Recipes</h2>
 
+
 <div class="controls">
 <input type="search" id="q" placeholder="Search recipes...">
 <select id="src"><option value="">All sources</option>
@@ -56,10 +61,16 @@ const RECIPES = [{"date_added": "2026-10-10T12:21:18.729Z", "description": "Feed
 const SRC_LABEL = {photo:"Photo",note:"Note",tiktok:"TikTok",reddit:"Reddit",manual:"Manual"};
 const q = document.getElementById('q'), src = document.getElementById('src'),
       tag = document.getElementById('tag'), list = document.getElementById('list');
+let tab = 'regular';
+function tab_ok(r){
+  if (tab !== 'rapid') return true;
+  return (r.description||'').toLowerCase().includes('rapid version exists');
+}
 function badge(t){ return '<span class="badge">'+t+'</span>'; }
 function render(){
   const needle = q.value.trim().toLowerCase();
   const items = RECIPES.filter(r => {
+    if (!tab_ok(r)) return false;
     if (src.value && r.source_type !== src.value) return false;
     if (tag.value && !(r.tags||[]).includes(tag.value)) return false;
     if (needle) {
@@ -85,6 +96,11 @@ function render(){
     </div>`).join('');
 }
 [q,src,tag].forEach(el => el.addEventListener('input', render));
+const tabReg = document.getElementById('tab-regular'), tabRap = document.getElementById('tab-rapid');
+if (tabReg && tabRap) {
+  tabReg.addEventListener('click', () => { tab='regular'; tabReg.classList.add('on'); tabRap.classList.remove('on'); render(); });
+  tabRap.addEventListener('click', () => { tab='rapid'; tabRap.classList.add('on'); tabReg.classList.remove('on'); render(); });
+}
 render();
 </script></main>
 <footer>Personal collection &middot; updated automatically</footer>
